@@ -1,0 +1,15 @@
+{% load static %}
+<h1> Выбор: {{ question.question_text }}</h1>
+<h1>{{ question.title }}</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form action="vote/" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+<br> <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+<label for="choice{{ forloop.counter }}">{{ choice.choice }}</label>
+{{ choice.choice_text }}
+{% endfor %} <p>
+<input type="submit" value="Выберите" />
+</form>
